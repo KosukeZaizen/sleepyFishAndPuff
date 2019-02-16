@@ -107,14 +107,14 @@ function addObj(obj){
   }
 
   //加速度を元に、速度計算
-  // (速度変化) = (速度) + (加速度) * (時間)
+  // (変化後の速度) = (初速) + (加速度) * (時間)
   obj.calcSpeed = function(){
     this.xSpeed = this.xSpeed + this.xAccel * intTimeStep;
     this.ySpeed = this.ySpeed + this.yAccel * intTimeStep;
   }
 
   //速度を元に、位置計算
-  // (位置変化)= (位置) + (速度) * (時間)
+  // (移動後の位置)= (初期位置) + (速度) * (時間)
   obj.calcPos = function(){
     this.style.left = parseInt(this.style.left) + Math.floor(this.xSpeed * intTimeStep) + "px";
     this.style.top = parseInt(this.style.top) + Math.floor(this.ySpeed * intTimeStep) + "px";
