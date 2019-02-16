@@ -1,92 +1,92 @@
 /*
-�u���݃y�[�W(curPage)�v���Z�b�g������ԂŁA
-changePage()���\�b�h�����s����ƁA
-curPage�̒l�ɍ��킹����ʂɐ؂�ւ��܂��B
+「現在ページ(curPage)」をセットした状態で、
+changePage()メソッドを実行すると、
+curPageの値に合わせた画面に切り替わります。
 */
 
 
-//�u���݃y�[�W�v���u00�y�[�W�v�ɃZ�b�g
+//「現在ページ」を「00ページ」にセット
 var curPage = "00";
 
 
-//�I�u�W�F�N�g���i�[���邽�߂̔z���p��
+//オブジェクトを格納するための配列を用意
 const objs = [];
 
 
-//��ʂ̒��S�̈ʒu��ϐ��ɓ���Ă���
+//画面の中心の位置を変数に入れておく
 wCenter = window.innerWidth/2;
 hCenter = window.innerHeight/2;
 
 
-//��ʓǂݍ��݌�ɂ����y�[�W�ύX
-//�i��L��00�y�[�W���Z�b�g�����j
+//画面読み込み後にすぐページ変更
+//（上記の00ページがセットされる）
 window.onload = function initial(){
   changePage();
 }
 
 
-//�u���݃y�[�W�v��ύX
+//「現在ページ」を変更
 function setPage(num){
   curPage = num;
 }
 
 
-//�u���݃y�[�W�v����ʂɔ��f������
+//「現在ページ」を画面に反映させる
 function changePage(){
 
-  //�upageDiv�v�Ƃ����N���X���������Ƃ��ăZ�b�g����Ă���HTML�v�f�����ׂĎ擾���܂��B
+  //「pageDiv」というクラス名が属性としてセットされているHTML要素をすべて取得します。
   arrAllPages = document.querySelectorAll(".pageDiv");
 
   for(let objPage of arrAllPages){
 
-    //��L�Ŏ擾����HTML�v�f�̂����A���݃y�[�W�ƈ�v����div�v�f������\������B
+    //上記で取得したHTML要素のうち、現在ページと一致するdiv要素だけを表示する。
     if(objPage.id == "page" + curPage){
 
-      //��v����Ε\��
+      //一致すれば表示
       show(objPage);
 
     } else {
 
-      //��v���Ȃ���Δ�\��
+      //一致しなければ非表示
       hide(objPage);
     }
   }
 }
 
 
-//���񏑂��̂��߂�ǂ������̂ŁA�֐��ɂ��܂����B
-//�ijQuery�Ȃǂ�p����΂����ƊȒP�ɏ����܂��B�j
+//毎回書くのがめんどくさいので、関数にしました。
+//（jQueryなどを用いればもっと簡単に書けます。）
 function gebId(id){
   return document.getElementById(id);
 }
 
 
-//���񏑂��̂��߂�ǂ������̂ŁA�֐��ɂ��܂����B
-//�ijQuery�Ȃǂ�p����΂����ƊȒP�ɏ����܂��B�j
+//毎回書くのがめんどくさいので、関数にしました。
+//（jQueryなどを用いればもっと簡単に書けます。）
 function gebClass(strClass){
   return document.getElementsByClassName(strClass);
 }
 
 
-//�����œn���ꂽ�I�u�W�F�N�g�̕\���������܂��B
-//���񏑂��̂��߂�ǂ������̂ŁA�֐��ɂ��܂����B
-//�ijQuery�Ȃǂ�p����΂����ƊȒP�ɏ����܂��B�j
+//引数で渡されたオブジェクトの表示を消します。
+//毎回書くのがめんどくさいので、関数にしました。
+//（jQueryなどを用いればもっと簡単に書けます。）
 function hide(obj){
   obj.style.display="none";
 }
 
 
-//�����œn���ꂽ�I�u�W�F�N�g�̕\����L���ɂ��܂��B
-//���񏑂��̂��߂�ǂ������̂ŁA�֐��ɂ��܂����B
-//�ijQuery�Ȃǂ�p����΂����ƊȒP�ɏ����܂��B�j
+//引数で渡されたオブジェクトの表示を有効にします。
+//毎回書くのがめんどくさいので、関数にしました。
+//（jQueryなどを用いればもっと簡単に書けます。）
 function show(obj){
   obj.style.display="block";
 }
 
 
 /*
-�����œn���ꂽ�I�u�W�F�N�g���A�`��Ώۂ̔z��Ɋi�[���܂��B
-���̍ہA�����x��ʒu���v�Z���邽�߂̃��\�b�h���A�I�u�W�F�N�g�ɒǉ����Ă��܂��B
+引数で渡されたオブジェクトを、描画対象の配列に格納します。
+その際、加速度や位置を計算するためのメソッドを、オブジェクトに追加しています。
 */
 function addObj(obj){
   obj.xAccel = 0;
@@ -94,118 +94,118 @@ function addObj(obj){
   obj.xSpeed = 0;
   obj.ySpeed = 0;
 
-  //doEachTime���\�b�h�́A�쐬���ꂽ�S�ẴI�u�W�F�N�g�ɑ΂��Ĉ�莞�Ԃ��ƂɎ��s�����̂ŁA
-  //����doEachTime���\�b�h���Z�b�g����Ȃ��I�u�W�F�N�g���������ۂ̃G���[��h�����߁A
-  //��̊֐������炩���߃Z�b�g�B
+  //doEachTimeメソッドは、作成された全てのオブジェクトに対して一定時間ごとに実行されるので、
+  //仮にdoEachTimeメソッドがセットされないオブジェクトがあった際のエラーを防ぐため、
+  //空の関数をあらかじめセット。
   obj.doEachTime = function(){};
 
-  //�󂯂��͂����ɁA�����x�v�Z
-  // (�����x) = (�󂯂���) / (���̂̏d��)
+  //受けた力を元に、加速度計算
+  // (加速度) = (受けた力) / (物体の重さ)
   obj.addForce = function(xForce, yForce){
     this.xAccel = xForce / this.weight;
     this.yAccel = yForce / this.weight;
   }
 
-  //�����x�����ɁA���x�v�Z
-  // (���x�ω�) = (���x) + (�����x) * (����)
+  //加速度を元に、速度計算
+  // (速度変化) = (速度) + (加速度) * (時間)
   obj.calcSpeed = function(){
     this.xSpeed = this.xSpeed + this.xAccel * intTimeStep;
     this.ySpeed = this.ySpeed + this.yAccel * intTimeStep;
   }
 
-  //���x�����ɁA�ʒu�v�Z
-  // (�ʒu�ω�)= (�ʒu) + (���x) * (����)
+  //速度を元に、位置計算
+  // (位置変化)= (位置) + (速度) * (時間)
   obj.calcPos = function(){
     this.style.left = parseInt(this.style.left) + Math.floor(this.xSpeed * intTimeStep) + "px";
     this.style.top = parseInt(this.style.top) + Math.floor(this.ySpeed * intTimeStep) + "px";
   };
 
-  //�`��Ώۂ̃I�u�W�F�N�g���i�[���邽�߂̔z��Ɋi�[
+  //描画対象のオブジェクトを格納するための配列に格納
   objs.push(obj);
 }
 
 
 /*
-�u�˂ނ��v���̕����𓮂�����悤�ɐ�������֐��ł��B
+「ねむい」等の文字を動かせるように生成する関数です。
 */
 function createChar(char, strClass, x, y, weight){
 
-  //span�Ƃ�����ނ�HTML�v�f�����ispan�̓O�O��Əo�Ă���Ǝv���܂��B�j
+  //spanという種類のHTML要素を作る（spanはググると出てくると思います。）
   var span = document.createElement("span");
 
-  //�����Ŏ󂯎����������HTML�Ƃ��ĕۗL�i���̏ꍇ�́u<span>�˂ނ�</span>�v�j
+  //引数で受け取った文字をHTMLとして保有（この場合は「<span>ねむい</span>」）
   span.innerHTML = char;
 
-  //�쐬����HTML�v�f��class�����ɁA�����Ŏ󂯎������������Z�b�g����
+  //作成したHTML要素のclass属性に、引数で受け取った文字列をセットする
   span.className = strClass;
 
-  //�uposition:fixed�v��uposition:absolute�v���Z�b�g����ƁA���̗v�f�̈ʒu�ɉe����^�����A��ʏ�����R�ɓ������܂��B
+  //「position:fixed」や「position:absolute」をセットすると、他の要素の位置に影響を与えず、画面上を自由に動かせます。
   span.style.position = "fixed";
 
-  //�����Ŏ󂯎�����A�����ʒu���Z�b�g���܂��B
+  //引数で受け取った、初期位置をセットします。
   span.style.top = y + "px";
   span.style.left = x + "px";
 
 
-  //�u���݃y�[�W�v��id������div�v�f�̒��ɁA��L�ō쐬����span�v�f��z�u���܂��B
+  //「現在ページ」のidを持つdiv要素の中に、上記で作成したspan要素を配置します。
   gebId("page" + curPage).appendChild(span);
 
 
-  //�����Ŏ󂯎�����A���̂̏d�����Z�b�g���܂��B
+  //引数で受け取った、物体の重さをセットします。
   span.weight = weight;
 
-  //�쐬����span�v�f���A�`��ΏۂƂ��ăZ�b�g���܂��B
+  //作成したspan要素を、描画対象としてセットします。
   addObj(span);
 }
 
 
 /*
-����V���[�N���[���̉摜�𓮂�����悤�ɐ�������֐��ł��B
+魚やシュークリームの画像を動かせるように生成する関数です。
 */
 function createImg(strSrc, strClass, x, y, weight){
 
-  //HTML��img�v�f���쐬
+  //HTMLのimg要素を作成
   var img = document.createElement("img");
 
-  //�����Ŏ󂯎�����A�摜�̊i�[�ꏊ��URL���Z�b�g
+  //引数で受け取った、画像の格納場所のURLをセット
   img.src = strSrc;
 
-  //�����Ŏ󂯎����HTML�v�f��class�������Z�b�g
+  //引数で受け取ったHTML要素のclass属性をセット
   img.className = strClass;
 
-  //�uposition:fixed�v��uposition:absolute�v���Z�b�g����ƁA���̗v�f�̈ʒu�ɉe����^�����A��ʏ�����R�ɓ������܂��B
+  //「position:fixed」や「position:absolute」をセットすると、他の要素の位置に影響を与えず、画面上を自由に動かせます。
   img.style.position = "fixed";
 
-  //�����Ŏ󂯎�����A�����ʒu���Z�b�g���܂��B
+  //引数で受け取った、初期位置をセットします。
   img.style.top = y + "px";
   img.style.left = x + "px";
 
 
-  //�u���݃y�[�W�v��id������div�v�f�̒��ɁA��L�ō쐬����img�v�f��z�u���܂��B
+  //「現在ページ」のidを持つdiv要素の中に、上記で作成したimg要素を配置します。
   gebId("page" + curPage).appendChild(img);
 
 
-  //�����Ŏ󂯎�����A���̂̏d�����Z�b�g���܂��B
+  //引数で受け取った、物体の重さをセットします。
   img.weight = weight;
 
-  //�쐬����span�v�f���A�`��ΏۂƂ��ăZ�b�g���܂��B
+  //作成したspan要素を、描画対象としてセットします。
   addObj(img);
 }
 
 
 /*
-main.js������A�e�I�u�W�F�N�g�ɑ΂��ă^�C���X�e�b�v���ƂɎ��s�������֐����n����܂��̂ŁA
-�e�I�u�W�F�N�g�ɁAdoEachTime()�Ƃ������\�b�h���ŁA���̓n����Ă����֐����������܂��B
+main.js側から、各オブジェクトに対してタイムステップごとに実行したい関数が渡されますので、
+各オブジェクトに、doEachTime()というメソッド名で、その渡されてきた関数を持たせます。
 
-�u�V���[�N���[���͉������ɗ͂��󂯂�v��
-�u"�˂ނ�"�̓����_���ȕ����ɗ͂��󂯂�v�Ȃǂ̊֐����n����Ă��܂��B
+「シュークリームは下向きに力を受ける」や
+「"ねむい"はランダムな方向に力を受ける」などの関数が渡されてきます。
 */
 function makeMethodForEachTime(strClass, func){
 
   for (let obj of objs){
     if(obj.className == strClass){
-      //�����œn����Ă����N���X���Ɉ�v����I�u�W�F�N�g�ɑ΂��Ă̂݁A
-      //�����œn���ꂽ�֐����A���\�b�h�Ƃ��Ď������܂��B
+      //引数で渡されてきたクラス名に一致するオブジェクトに対してのみ、
+      //引数で渡された関数を、メソッドとして持たせます。
       obj.doEachTime = func;
     }
   }
@@ -213,21 +213,21 @@ function makeMethodForEachTime(strClass, func){
 
 
 /*
-main.js���̍ŏI�s����Ăяo����Ă��܂��B
-���Ԋu�i�^�C���X�e�b�v�j���Ɏ��s�����֐��ł��B
+main.js側の最終行から呼び出されています。
+一定間隔（タイムステップ）毎に実行される関数です。
 */
 function nextTime(){
 
-  //���ׂĂ̕`��ΏۃI�u�W�F�N�g�ɑ΂��A�ȉ��̌v�Z���s���܂��B
+  //すべての描画対象オブジェクトに対し、以下の計算を行います。
   for (let obj of objs){
 
-    //�󂯂��͂Ɖ����x���v�Z
+    //受けた力と加速度を計算
     obj.doEachTime();
 
-    //���x���v�Z
+    //速度を計算
     obj.calcSpeed();
 
-    //�ʒu�v�Z
+    //位置計算
     obj.calcPos();
   }
 }
