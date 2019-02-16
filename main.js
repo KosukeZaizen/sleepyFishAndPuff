@@ -57,7 +57,7 @@ function startMovie(){
       this.addForce(0, 2);
     }
   );
-  //---------puffここまで---------
+  //---------syuuここまで---------
 
 
 
