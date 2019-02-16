@@ -1,11 +1,11 @@
 //時間単位に1をセット
 intTimeStep = 1;
 
+
 //startボタン押下時の処理（index.htmlから呼ばれてます）
 function startMovie(){
   setPage("01");
   changePage();
-
 
 
   //---------ねむい ここから---------
@@ -86,7 +86,7 @@ function startMovie(){
       randX = Math.floor( Math.random() * 10 ) - 4;
       randY = Math.floor( Math.random() * 5 ) - 2;
 
-      上記で計算した力を、魚にセットし、加速度の計算までを行います。
+      //上記で計算した力を、魚にセットし、加速度の計算までを行います。
       this.addForce(randX, randY);
     }
   );

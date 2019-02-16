@@ -97,7 +97,7 @@ function addObj(obj){
   //doEachTimeƒƒ\ƒbƒh‚ÍAì¬‚³‚ê‚½‘S‚Ä‚ÌƒIƒuƒWƒFƒNƒg‚É‘Î‚µ‚Äˆê’èŽžŠÔ‚²‚Æ‚ÉŽÀs‚³‚ê‚é‚Ì‚ÅA
   //‰¼‚ÉdoEachTimeƒƒ\ƒbƒh‚ªƒZƒbƒg‚³‚ê‚È‚¢ƒIƒuƒWƒFƒNƒg‚ª‚ ‚Á‚½Û‚ÌƒGƒ‰[‚ð–h‚®‚½‚ßA
   //‹ó‚ÌŠÖ”‚ð‚ ‚ç‚©‚¶‚ßƒZƒbƒgB
-  obj.doEachTime = function(){}
+  obj.doEachTime = function(){};
 
   //Žó‚¯‚½—Í‚ðŒ³‚ÉA‰Á‘¬“xŒvŽZ
   // (‰Á‘¬“x) = (Žó‚¯‚½—Í) / (•¨‘Ì‚Ìd‚³)
@@ -118,7 +118,7 @@ function addObj(obj){
   obj.calcPos = function(){
     this.style.left = parseInt(this.style.left) + Math.floor(this.xSpeed * intTimeStep) + "px";
     this.style.top = parseInt(this.style.top) + Math.floor(this.ySpeed * intTimeStep) + "px";
-  }
+  };
 
   //•`‰æ‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg‚ðŠi”[‚·‚é‚½‚ß‚Ì”z—ñ‚ÉŠi”[
   objs.push(obj);
@@ -173,7 +173,7 @@ function createImg(strSrc, strClass, x, y, weight){
   //ˆø”‚ÅŽó‚¯Žæ‚Á‚½HTML—v‘f‚Ìclass‘®«‚ðƒZƒbƒg
   img.className = strClass;
 
-  //positione:fixed;
+  //uposition:fixedv‚âuposition:absolutev‚ðƒZƒbƒg‚·‚é‚ÆA‘¼‚Ì—v‘f‚ÌˆÊ’u‚É‰e‹¿‚ð—^‚¦‚¸A‰æ–Êã‚ðŽ©—R‚É“®‚©‚¹‚Ü‚·B
   img.style.position = "fixed";
 
   //ˆø”‚ÅŽó‚¯Žæ‚Á‚½A‰ŠúˆÊ’u‚ðƒZƒbƒg‚µ‚Ü‚·B
@@ -202,8 +202,7 @@ main.js‘¤‚©‚çAŠeƒIƒuƒWƒFƒNƒg‚É‘Î‚µ‚Äƒ^ƒCƒ€ƒXƒeƒbƒv‚²‚Æ‚ÉŽÀs‚µ‚½‚¢ŠÖ”‚ª“n‚³‚ê‚
 */
 function makeMethodForEachTime(strClass, func){
 
-  for (i = 0; objs.length > i; i++){
-    obj = objs[i];
+  for (let obj of objs){
     if(obj.className == strClass){
       //ˆø”‚Å“n‚³‚ê‚Ä‚«‚½ƒNƒ‰ƒX–¼‚Éˆê’v‚·‚éƒIƒuƒWƒFƒNƒg‚É‘Î‚µ‚Ä‚Ì‚ÝA
       //ˆø”‚Å“n‚³‚ê‚½ŠÖ”‚ðAƒƒ\ƒbƒh‚Æ‚µ‚ÄŽ‚½‚¹‚Ü‚·B
@@ -220,15 +219,15 @@ main.js‘¤‚ÌÅIs‚©‚çŒÄ‚Ño‚³‚ê‚Ä‚¢‚Ü‚·B
 function nextTime(){
 
   //‚·‚×‚Ä‚Ì•`‰æ‘ÎÛƒIƒuƒWƒFƒNƒg‚É‘Î‚µAˆÈ‰º‚ÌŒvŽZ‚ðs‚¢‚Ü‚·B
-  for (i = 0; objs.length > i; i++){
+  for (let obj of objs){
 
     //Žó‚¯‚½—Í‚Æ‰Á‘¬“x‚ðŒvŽZ
-    objs[i].doEachTime();
+    obj.doEachTime();
 
     //‘¬“x‚ðŒvŽZ
-    objs[i].calcSpeed();
+    obj.calcSpeed();
 
     //ˆÊ’uŒvŽZ
-    objs[i].calcPos();
+    obj.calcPos();
   }
 }
